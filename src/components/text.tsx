@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const textColorOptions = [
   'text-grey-100',
@@ -34,18 +34,18 @@ export default function Text() {
   }
 
   function minmax(value, min, max) {
-    if (!(value[value.length - 1] >= '0' && value[value.length - 1] >= '0'))
-      value.slice(value.length - 2, value.length)
-    console.log(value)
+    value.match()
     if (parseInt(value) < min || isNaN(parseInt(value))) return min
     else if (parseInt(value) > max) return max
     else return value
   }
+
   useEffect(() => {
     const str = `text-[${fontSize}px]`
     setFontSizeAttr(`${str}`)
     console.log(fontSizeAttr)
   }, [fontSize])
+
   useEffect(() => {
     if (isBold) setBoldAttr('font-normal')
     else setBoldAttr('font-bold')
@@ -65,21 +65,17 @@ export default function Text() {
         <input
           type='text'
           value={fontSize}
-          pattern='/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/'
           className='w-6 bg-transparent outline-none text-center text-black text-lg'
+          onKeyDown={(e) => {
+            console.log(e.key)
+            var ASCIICode = e.key
+            if (parseInt(ASCIICode) > 0 || parseInt(ASCIICode) < 9) return true
+            return e.preventDefault()
+          }}
           onChange={(e) => {
             setFontSize(minmax(e.target.value, 0, 50))
           }}
         />
-        {/* <input
-          type='text'
-          value={fontSize}
-          min='0'
-          max='50'
-          pattern='(?=.*\d)(?=.*\d)'
-          className='w-6 bg-transparent outline-none text-center text-black text-lg appearance-none'
-          onChange={(e) => setFontSize(parseFloat(e.target.value))}
-        /> */}
         {/* Increase font size button */}
         <button
           className='hover:bg-green-200 border-none outline-none'
