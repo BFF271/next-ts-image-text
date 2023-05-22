@@ -12,16 +12,34 @@ const textColorOptions = [
   'text-grey-900',
 ]
 
-const fontSizeOptions = []
-
-for (let i = 0; i <= 50; i++) {
-  fontSizeOptions.push(`text-[${i}px]`)
-}
+const fontSizeOptions = [
+  'text-[10px]',
+  'text-[11px]',
+  'text-[12px]',
+  'text-[13px]',
+  'text-[14px]',
+  'text-[15px]',
+  'text-[16px]',
+  'text-[17px]',
+  'text-[18px]',
+  'text-[19px]',
+  'text-[20px]',
+  'text-[21px]',
+  'text-[22px]',
+  'text-[23px]',
+  'text-[24px]',
+  'text-[25px]',
+  'text-[26px]',
+  'text-[27px]',
+  'text-[28px]',
+  'text-[29px]',
+  'text-[30px]',
+]
 
 export default function Text() {
-  const [fontSize, setFontSize] = useState<number>(30)
-  const [fontSizeAttr, setFontSizeAttr] = useState<string>(`text-[30px]`)
-  const [textColor, setTextColor] = useState<string>('text-white')
+  const [fontSize, setFontSize] = useState(20)
+  const [fontSizeAttr, setFontSizeAttr] = useState(fontSizeOptions[10])
+  const [textColor, setTextColor] = useState('text-white')
   const [boldText, setBoldText] = useState('BOLDED TEXT')
   const [normalText, setNormalText] = useState(
     'Some text of random, normal weight text',
@@ -47,11 +65,9 @@ export default function Text() {
   }
 
   useEffect(() => {
-    console.log(fontSizeOptions[fontSize])
-    const str = `text-[${fontSize}px]`
-    setFontSizeAttr(`${fontSizeOptions[fontSize]}`)
+    console.log(fontSize - 10)
+    setFontSizeAttr(`${fontSizeOptions[fontSize - 10]}`)
     console.log(fontSizeAttr)
-    // console.log(fontSizeAttr)
   }, [fontSize])
 
   useEffect(() => {
@@ -64,7 +80,7 @@ export default function Text() {
         <button
           className='hover:bg-green-200 border-none outline-none'
           onClick={() => {
-            if (fontSize > 0) setFontSize(fontSize - 1)
+            if (fontSize > 10) setFontSize(fontSize - 1)
           }}
         >
           <img src='/minus.svg' alt='Minus Icon' draggable='false' />
@@ -77,18 +93,19 @@ export default function Text() {
           onKeyDown={(e) => {
             console.log(e.key)
             var ASCIICode = e.key
-            if (parseInt(ASCIICode) > 0 && parseInt(ASCIICode) < 9) return true
+            if (parseInt(ASCIICode) >= 0 && parseInt(ASCIICode) <= 9)
+              return true
             return e.preventDefault()
           }}
           onChange={(e) => {
-            setFontSize(minmax(e.target.value, 0, 50))
+            setFontSize(minmax(e.target.value, 10, 30))
           }}
         />
         {/* Increase font size button */}
         <button
           className='hover:bg-green-200 border-none outline-none'
           onClick={() => {
-            if (fontSize < 50) setFontSize(fontSize + 1)
+            if (fontSize < 30) setFontSize(fontSize + 1)
           }}
         >
           <img src='/plus.svg' alt='Plus Icon' draggable='false' />
