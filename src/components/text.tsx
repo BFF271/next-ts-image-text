@@ -12,9 +12,15 @@ const textColorOptions = [
   'text-grey-900',
 ]
 
+const fontSizeOptions = []
+
+for (let i = 0; i <= 50; i++) {
+  fontSizeOptions.push(`text-[${i}px]`)
+}
+
 export default function Text() {
-  const [fontSize, setFontSize] = useState<number>(20)
-  const [fontSizeAttr, setFontSizeAttr] = useState<string>('text-[20px]')
+  const [fontSize, setFontSize] = useState<number>(30)
+  const [fontSizeAttr, setFontSizeAttr] = useState<string>(`text-[30px]`)
   const [textColor, setTextColor] = useState<string>('text-white')
   const [boldText, setBoldText] = useState('BOLDED TEXT')
   const [normalText, setNormalText] = useState(
@@ -41,9 +47,11 @@ export default function Text() {
   }
 
   useEffect(() => {
+    console.log(fontSizeOptions[fontSize])
     const str = `text-[${fontSize}px]`
-    setFontSizeAttr(`${str}`)
+    setFontSizeAttr(`${fontSizeOptions[fontSize]}`)
     console.log(fontSizeAttr)
+    // console.log(fontSizeAttr)
   }, [fontSize])
 
   useEffect(() => {
@@ -59,7 +67,7 @@ export default function Text() {
             if (fontSize > 0) setFontSize(fontSize - 1)
           }}
         >
-          <img src='/minus.svg' alt='Minus Icon' />
+          <img src='/minus.svg' alt='Minus Icon' draggable='false' />
         </button>
         {/* Font size input */}
         <input
@@ -69,7 +77,7 @@ export default function Text() {
           onKeyDown={(e) => {
             console.log(e.key)
             var ASCIICode = e.key
-            if (parseInt(ASCIICode) > 0 || parseInt(ASCIICode) < 9) return true
+            if (parseInt(ASCIICode) > 0 && parseInt(ASCIICode) < 9) return true
             return e.preventDefault()
           }}
           onChange={(e) => {
@@ -83,36 +91,37 @@ export default function Text() {
             if (fontSize < 50) setFontSize(fontSize + 1)
           }}
         >
-          <img src='/plus.svg' alt='Plus Icon' />
+          <img src='/plus.svg' alt='Plus Icon' draggable='false' />
         </button>
         {/* Toggle bold text */}
         <button
           className='hover:bg-green-200 border-none outline-none mx-3'
-          onClick={() => setIsBold(!isBold)}
+          onClick={() => {
+            setIsBold(!isBold)
+          }}
         >
-          <img src='/bold.svg' alt='Bold Icon' />
+          <img src='/bold.svg' alt='Bold Icon' draggable='false' />
         </button>
         <div className='h-6'>
           <button
             id='dropdownDefaultButton'
             data-dropdown-toggle='dropdown'
             className="bg-[url('/pencil.svg')] w-6 h-6 hover:bg-green-200 border-none outline-none"
-            type='button'
             onClick={handleIsOpenColorDropDown}
           ></button>
           {isOpenColorDropDown && (
             <div
               id='dropdown'
-              className='absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-32 dark:bg-gray-700'
+              className='absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-32'
             >
               <ul
-                className='py-2 text-sm text-gray-700 dark:text-gray-200'
+                className='py-2 text-sm text-gray-700'
                 aria-labelledby='dropdownDefaultButton'
               >
                 {textColorOptions.map((color) => (
                   <li
                     key={color}
-                    className={`block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white ${color}`}
+                    className={`block px-4 py-2 hover:bg-gray-100 ${color}`}
                     onClick={() => handleChangeTextColor(color)}
                   >
                     {color}
