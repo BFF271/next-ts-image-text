@@ -3,24 +3,14 @@ import { useEffect, useState } from 'react'
 
 export default function Image() {
   const [createObjectURL, setCreateObjectURL] = useState(null)
-  const [backImgName, setBackImgName] = useState(
-    `bg-[url('/uploads/download.jpg')]`,
-  )
+  const [backImgName, setBackImgName] = useState(``)
 
   const handleSetBackImg = (url: string) => {
     setBackImgName(url)
-    const sharp = require('sharp')
+    console.log(backImgName)
   }
 
-  useEffect(() => {
-    // document.getElementById(
-    //   'imageBoard',
-    // ).style.backgroundImage = `url('${backImgName}')`
-    console.log(backImgName)
-  }, [backImgName])
-
   return (
-    // bg-[url('/pencil.svg')]
     <div
       id='imageBoard'
       className={`bg-no-repeat items-center mx-auto w-[472px] h-[384px]`}
@@ -43,13 +33,12 @@ export default function Image() {
                 method: 'POST',
                 body,
               })
-
+              console.log(response)
               const json = await response.json()
               console.log(json)
-              if (json.width <= 472 || json.height <= 384)
+              if (json.width < 472 || json.height < 384)
                 alert('It is improper resolution.')
-
-              handleSetBackImg(json.url)
+              else handleSetBackImg(json.url)
             }
           }}
         />

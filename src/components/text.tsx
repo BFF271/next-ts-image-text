@@ -65,9 +65,7 @@ export default function Text() {
   }
 
   useEffect(() => {
-    console.log(fontSize - 10)
     setFontSizeAttr(`${fontSizeOptions[fontSize - 10]}`)
-    console.log(fontSizeAttr)
   }, [fontSize])
 
   useEffect(() => {
@@ -91,7 +89,6 @@ export default function Text() {
           value={fontSize}
           className='w-6 bg-transparent outline-none text-center text-black text-lg'
           onKeyDown={(e) => {
-            console.log(e.key)
             var ASCIICode = e.key
             if (
               (parseInt(ASCIICode) >= 0 && parseInt(ASCIICode) <= 9) ||
