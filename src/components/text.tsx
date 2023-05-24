@@ -93,7 +93,11 @@ export default function Text() {
           onKeyDown={(e) => {
             console.log(e.key)
             var ASCIICode = e.key
-            if (parseInt(ASCIICode) >= 0 && parseInt(ASCIICode) <= 9)
+            if (
+              (parseInt(ASCIICode) >= 0 && parseInt(ASCIICode) <= 9) ||
+              ASCIICode === 'ArrowLeft' ||
+              ASCIICode === 'ArrowRight'
+            )
               return true
             return e.preventDefault()
           }}
